@@ -4,22 +4,20 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+//import { SupabaseService } from './supabase/supabase.service';
+import { PrismaService } from './prisma/prisma.service';
+import { PrismaModule } from './prisma/prisma.module';
+import { EtapasDesarrolloController } from './etapas_desarrollo/etapas_desarrollo.controller';
+import { DietaController } from './dieta/dieta.controller';
+import { EspeciesController } from './especies/especies.controller';
+import { FednaIngredientesController } from './fedna_ingredientes/fedna_ingredientes.controller';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME,
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    PrismaModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, FednaIngredientesController, EspeciesController, DietaController, EtapasDesarrolloController],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}

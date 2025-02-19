@@ -1,12 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { PrismaService } from './prisma/prisma.service';
 
-@Controller()
+@Controller('especie') // Cambia "items" por el nombre de tu recurso
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+  
 }
