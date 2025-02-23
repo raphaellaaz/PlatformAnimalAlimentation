@@ -14,13 +14,13 @@ export class FednaIngredientesController {
     // Leer (Obtener todos)
     @Get()
     async findAll() {
-      return this.prisma.especies.findMany();
+      return this.prisma.fedna.findMany();
     }
   
     // Leer (Obtener uno por ID)
     @Get(':id')
     async findOne(@Param('id') id: string) {
-      return this.prisma.especies.findUnique({ where: { id_especie: Number(id) } });
+      return this.prisma.fedna.findUnique({ where: { id: Number(id) } });
     }
   
     //// Actualizar (Modificar)

@@ -18,14 +18,14 @@ model dietas {
 }
 
 model especies {
-  id_especie        Int                 @id
+  id_especie        Int                 @id @default(autoincrement())
   nombre            String              @db.VarChar(50)
   tipo              String?             @db.VarChar(20)
   etapas_desarrollo etapas_desarrollo[]
 }
 
 model etapas_desarrollo {
-  id_etapa     Int      @id
+  id_etapa     Int      @id @default(autoincrement())
   id_especie   Int
   nombre_etapa String   @db.VarChar(50)
   edad_inicio  Int
