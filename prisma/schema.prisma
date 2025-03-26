@@ -18,14 +18,14 @@ model dietas {
 }
 
 model especies {
-  id_especie        Int                 @id @default(autoincrement())
+  id_especie        Int                 @id
   nombre            String              @db.VarChar(50)
   tipo              String?             @db.VarChar(20)
   etapas_desarrollo etapas_desarrollo[]
 }
 
 model etapas_desarrollo {
-  id_etapa     Int      @id @default(autoincrement())
+  id_etapa     Int      @id
   id_especie   Int
   nombre_etapa String   @db.VarChar(50)
   edad_inicio  Int
@@ -138,4 +138,23 @@ model fedna {
   ARG_DR____         Float?  @map("ARG_DR (%)")
   GLYeq_DR____       Float?  @map("GLYeq_DR (%)")
   id                 Int     @id(map: "fedna_data_pkey") @default(autoincrement())
+}
+
+model tipo_usuarios {
+  id             Int       @id @default(autoincrement())
+  tipo_usuario   String    @db.VarChar(50)
+  fecha_registro DateTime? @default(now()) @db.Timestamp(6)
+  usuario        usuario[]
+}
+
+model usuario {
+  id              Int           @id @default(autoincrement())
+  nombre          String        @db.VarChar(50)
+  apellido        String        @db.VarChar(50)
+  telefono        String        @unique @db.VarChar(20)
+  correo          String        @unique @db.VarChar(100)
+  contrasena_hash String        @db.VarChar(255)
+  fecha_registro  DateTime?     @default(now()) @db.Timestamp(6)
+  id_tipo_usuario Int
+  tipo_usuarios   tipo_usuarios @relation(fields: [id_tipo_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
