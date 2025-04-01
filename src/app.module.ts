@@ -11,15 +11,16 @@ import { EtapasDesarrolloController } from './etapas_desarrollo/etapas_desarroll
 import { DietaController } from './dieta/dieta.controller';
 import { EspeciesController } from './especies/especies.controller';
 import { FednaIngredientesController } from './fedna_ingredientes/fedna_ingredientes.controller';
-import { UsuarioController } from './usuario/usuario.controller';
+import { UsuarioModule } from './usuario/usuario.module';
 import { TipoUsuarioController } from './tipo_usuario/tipo_usuario.controller';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     PrismaModule,
+    UsuarioModule,
   ],
-  controllers: [AppController, FednaIngredientesController, EspeciesController, DietaController, EtapasDesarrolloController, UsuarioController, TipoUsuarioController],
+  controllers: [AppController, FednaIngredientesController, EspeciesController, DietaController, EtapasDesarrolloController, TipoUsuarioController],
   providers: [AppService, PrismaService],
 })
 export class AppModule {}

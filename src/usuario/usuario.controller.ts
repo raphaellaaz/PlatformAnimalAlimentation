@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete,  Put , Param, Body} from '@nestjs/common';
+import { Controller, Get, Post, Delete, Put, Param, Body } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Controller('usuario')
@@ -22,7 +22,7 @@ export class UsuarioController {
   @Get()
   async findAll() {
     return this.prisma.usuario.findMany({
-      include: { tipo_usuarios: true }, // Incluye la relación con `tipo_usuarios`
+      include: { tipo_usuarios: true },
     });
   }
 
@@ -31,7 +31,7 @@ export class UsuarioController {
   async findOne(@Param('id') id: string) {
     return this.prisma.usuario.findUnique({ 
       where: { id: Number(id) },
-      include: { tipo_usuarios: true }, // Incluye la relación
+      include: { tipo_usuarios: true },
     });
   }
 
