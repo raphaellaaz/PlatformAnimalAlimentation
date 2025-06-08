@@ -8,13 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsuarioModule = void 0;
 const common_1 = require("@nestjs/common");
-const jwt_1 = require("@nestjs/jwt");
-const passport_1 = require("@nestjs/passport");
 const usuario_controller_1 = require("./usuario.controller");
-const auth_controller_1 = require("./auth.controller");
 const usuario_service_1 = require("./usuario.service");
 const prisma_module_1 = require("../prisma/prisma.module");
-const oauth2_strategy_1 = require("./strategies/oauth2.strategy");
+const auth_module_1 = require("../auth/auth.module");
 let UsuarioModule = class UsuarioModule {
 };
 exports.UsuarioModule = UsuarioModule;
@@ -22,14 +19,10 @@ exports.UsuarioModule = UsuarioModule = __decorate([
     (0, common_1.Module)({
         imports: [
             prisma_module_1.PrismaModule,
-            passport_1.PassportModule,
-            jwt_1.JwtModule.register({
-                secret: process.env.JWT_SECRET || 'tu_secreto_super_secreto',
-                signOptions: { expiresIn: '24h' },
-            }),
+            auth_module_1.AuthModule,
         ],
-        controllers: [usuario_controller_1.UsuarioController, auth_controller_1.AuthController],
-        providers: [usuario_service_1.UsuarioService, oauth2_strategy_1.OAuth2Strategy],
+        controllers: [usuario_controller_1.UsuarioController],
+        providers: [usuario_service_1.UsuarioService],
         exports: [usuario_service_1.UsuarioService],
     })
 ], UsuarioModule);

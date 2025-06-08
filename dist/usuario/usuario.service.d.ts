@@ -1,39 +1,57 @@
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
-import { JwtService } from '@nestjs/jwt';
 export declare class UsuarioService {
     private prisma;
-    private jwtService;
-    constructor(prisma: PrismaService, jwtService: JwtService);
-    register(createUserDto: CreateUserDto): Promise<{
-        token: string;
+    constructor(prisma: PrismaService);
+    findAll(): Promise<{
+        tipo_usuarios: {
+            id: number;
+            fecha_registro: Date;
+            tipo_usuario: string;
+        };
         id: number;
         nombre: string;
         apellido: string;
         telefono: string;
         correo: string;
-        fecha_registro: Date | null;
         id_tipo_usuario: number;
+        fecha_registro: Date;
+    }[]>;
+    findOne(id: number): Promise<{
+        tipo_usuarios: {
+            id: number;
+            fecha_registro: Date;
+            tipo_usuario: string;
+        };
+        id: number;
+        nombre: string;
+        apellido: string;
+        telefono: string;
+        correo: string;
+        id_tipo_usuario: number;
+        fecha_registro: Date;
     }>;
-    login(loginUserDto: LoginUserDto): Promise<{
-        token: string;
+    update(id: number, updateData: {
+        nombre?: string;
+        apellido?: string;
+        telefono?: string;
+        correo?: string;
+        id_tipo_usuario?: number;
+    }): Promise<{
         id: number;
         nombre: string;
         apellido: string;
         telefono: string;
         correo: string;
-        fecha_registro: Date | null;
         id_tipo_usuario: number;
+        fecha_registro: Date;
     }>;
-    findOrCreateOAuthUser(userInfo: any): Promise<{
-        token: string;
+    remove(id: number): Promise<{
         id: number;
         nombre: string;
         apellido: string;
         telefono: string;
         correo: string;
-        fecha_registro: Date | null;
         id_tipo_usuario: number;
+        fecha_registro: Date;
     }>;
 }

@@ -1,62 +1,40 @@
-import { PrismaService } from 'src/prisma/prisma.service';
+import { UsuarioService } from './usuario.service';
 export declare class UsuarioController {
-    private readonly prisma;
-    constructor(prisma: PrismaService);
-    create(data: {
-        nombre: string;
-        apellido: string;
-        telefono: string;
-        correo: string;
-        contrasena_hash: string;
-        id_tipo_usuario: number;
-    }): Promise<{
+    private readonly usuarioService;
+    constructor(usuarioService: UsuarioService);
+    findAll(): Promise<{
+        tipo_usuarios: {
+            id: number;
+            fecha_registro: Date;
+            tipo_usuario: string;
+        };
         id: number;
         nombre: string;
         apellido: string;
         telefono: string;
         correo: string;
-        contrasena_hash: string;
-        fecha_registro: Date | null;
         id_tipo_usuario: number;
+        fecha_registro: Date;
+    }[]>;
+    findOne(id: number): Promise<{
+        tipo_usuarios: {
+            id: number;
+            fecha_registro: Date;
+            tipo_usuario: string;
+        };
+        id: number;
+        nombre: string;
+        apellido: string;
+        telefono: string;
+        correo: string;
+        id_tipo_usuario: number;
+        fecha_registro: Date;
     }>;
-    findAll(): Promise<({
-        tipo_usuarios: {
-            id: number;
-            fecha_registro: Date | null;
-            tipo_usuario: string;
-        };
-    } & {
-        id: number;
-        nombre: string;
-        apellido: string;
-        telefono: string;
-        correo: string;
-        contrasena_hash: string;
-        fecha_registro: Date | null;
-        id_tipo_usuario: number;
-    })[]>;
-    findOne(id: string): Promise<({
-        tipo_usuarios: {
-            id: number;
-            fecha_registro: Date | null;
-            tipo_usuario: string;
-        };
-    } & {
-        id: number;
-        nombre: string;
-        apellido: string;
-        telefono: string;
-        correo: string;
-        contrasena_hash: string;
-        fecha_registro: Date | null;
-        id_tipo_usuario: number;
-    }) | null>;
-    update(id: string, data: {
+    update(id: number, updateData: {
         nombre?: string;
         apellido?: string;
         telefono?: string;
         correo?: string;
-        contrasena_hash?: string;
         id_tipo_usuario?: number;
     }): Promise<{
         id: number;
@@ -64,18 +42,16 @@ export declare class UsuarioController {
         apellido: string;
         telefono: string;
         correo: string;
-        contrasena_hash: string;
-        fecha_registro: Date | null;
         id_tipo_usuario: number;
+        fecha_registro: Date;
     }>;
-    delete(id: string): Promise<{
+    delete(id: number): Promise<{
         id: number;
         nombre: string;
         apellido: string;
         telefono: string;
         correo: string;
-        contrasena_hash: string;
-        fecha_registro: Date | null;
         id_tipo_usuario: number;
+        fecha_registro: Date;
     }>;
 }

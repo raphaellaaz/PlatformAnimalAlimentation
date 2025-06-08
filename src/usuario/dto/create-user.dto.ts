@@ -19,4 +19,4 @@ export class CreateUserDto {
 
   @IsNumber()
   id_tipo_usuario: number;
-} 
+}

@@ -14,43 +14,26 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsuarioController = void 0;
 const common_1 = require("@nestjs/common");
-const prisma_service_1 = require("../prisma/prisma.service");
+const usuario_service_1 = require("./usuario.service");
+const passport_1 = require("@nestjs/passport");
 let UsuarioController = class UsuarioController {
-    constructor(prisma) {
-        this.prisma = prisma;
-    }
-    async create(data) {
-        return this.prisma.usuario.create({ data });
+    constructor(usuarioService) {
+        this.usuarioService = usuarioService;
     }
     async findAll() {
-        return this.prisma.usuario.findMany({
-            include: { tipo_usuarios: true },
-        });
+        return this.usuarioService.findAll();
     }
     async findOne(id) {
-        return this.prisma.usuario.findUnique({
-            where: { id: Number(id) },
-            include: { tipo_usuarios: true },
-        });
+        return this.usuarioService.findOne(id);
     }
-    async update(id, data) {
-        return this.prisma.usuario.update({
-            where: { id: Number(id) },
-            data
-        });
+    async update(id, updateData) {
+        return this.usuarioService.update(id, updateData);
     }
     async delete(id) {
-        return this.prisma.usuario.delete({ where: { id: Number(id) } });
+        return this.usuarioService.remove(id);
     }
 };
 exports.UsuarioController = UsuarioController;
-__decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UsuarioController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
@@ -59,28 +42,29 @@ __decorate([
 ], UsuarioController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UsuarioController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
 ], UsuarioController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UsuarioController.prototype, "delete", null);
 exports.UsuarioController = UsuarioController = __decorate([
     (0, common_1.Controller)('usuario'),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    __metadata("design:paramtypes", [usuario_service_1.UsuarioService])
 ], UsuarioController);
 //# sourceMappingURL=usuario.controller.js.map

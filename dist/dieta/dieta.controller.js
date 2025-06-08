@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DietaController = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 let DietaController = class DietaController {
     constructor(prisma) {
         this.prisma = prisma;
@@ -23,13 +24,21 @@ let DietaController = class DietaController {
         return this.prisma.dietas.create({ data });
     }
     async findAll() {
-        return this.prisma.dietas.findMany();
+        return this.prisma.dietas.findMany({
+            include: { etapas_desarrollo: true },
+        });
     }
     async findOne(id) {
-        return this.prisma.dietas.findUnique({ where: { id_dieta: Number(id) } });
+        return this.prisma.dietas.findUnique({
+            where: { id_dieta: Number(id) },
+            include: { etapas_desarrollo: true },
+        });
     }
     async update(id, data) {
-        return this.prisma.dietas.update({ where: { id_dieta: Number(id) }, data });
+        return this.prisma.dietas.update({
+            where: { id_dieta: Number(id) },
+            data
+        });
     }
     async delete(id) {
         return this.prisma.dietas.delete({ where: { id_dieta: Number(id) } });
@@ -57,7 +66,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], DietaController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Put)(':id'),
+    (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -73,6 +82,7 @@ __decorate([
 ], DietaController.prototype, "delete", null);
 exports.DietaController = DietaController = __decorate([
     (0, common_1.Controller)('dieta'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], DietaController);
 //# sourceMappingURL=dieta.controller.js.map

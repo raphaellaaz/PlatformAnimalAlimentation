@@ -7,17 +7,17 @@ export declare class TipoUsuarioController {
         fecha_registro: Date;
     }): Promise<{
         id: number;
-        fecha_registro: Date | null;
+        fecha_registro: Date;
         tipo_usuario: string;
     }>;
     findAll(): Promise<{
         id: number;
-        fecha_registro: Date | null;
+        fecha_registro: Date;
         tipo_usuario: string;
     }[]>;
     findOne(id: string): Promise<{
         id: number;
-        fecha_registro: Date | null;
+        fecha_registro: Date;
         tipo_usuario: string;
     } | null>;
     update(id: string, data: {
@@ -25,12 +25,12 @@ export declare class TipoUsuarioController {
         fecha_registro?: Date;
     }): Promise<{
         id: number;
-        fecha_registro: Date | null;
+        fecha_registro: Date;
         tipo_usuario: string;
     }>;
     delete(id: string): Promise<{
         id: number;
-        fecha_registro: Date | null;
+        fecha_registro: Date;
         tipo_usuario: string;
     }>;
 }
